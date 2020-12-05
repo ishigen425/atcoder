@@ -1,0 +1,7 @@
+atc/
+.vscode/
+*.py
+tmp*
+README.md
+startup.sh
+
