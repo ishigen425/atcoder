@@ -1,6 +1,6 @@
 atc/
 .vscode/
-*.py
+/*.py
 tmp*
 README.md
 startup.sh
