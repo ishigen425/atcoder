@@ -33,3 +33,8 @@ class SegT():
         vr = self.get(a, b, node*2+2, (l+r)//2, r)
         return self._calc(vl, vr)
 
+
+# 遅延評価セグメント木
+# 区間最大値の取得 O(logN)
+# 区間最大値の更新 O(logN)
+# https://atcoder.jp/contests/typical90/submissions/25004902

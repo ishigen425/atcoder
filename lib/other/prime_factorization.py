@@ -1,4 +1,5 @@
 class factrize_osa_k():
+    from collections import defaultdict
     '''
         高速素因数分解
         前処理 O(maxnum log log maxnum)
@@ -16,15 +17,14 @@ class factrize_osa_k():
             p += 1
     
     def calc_prime(self, a):
-        ret = set()
+        d = defaultdict(int)
         while a > 1:
-            ret.add(self.sieve[a])
+            d[self.sieve[a]] += 1
             a //= self.sieve[a]
-        return ret
+        return d
     
     def is_prime(self, a):
         return self.sieve[a] == a
-
 
 def prime_factorize(n):
     res, a = [], 2

@@ -40,3 +40,30 @@ for i in range(n):
     ans = max(ans, tmp)
 
 print(ans)
+
+
+# https://atcoder.jp/contests/past202012-open/submissions/20277888
+
+N = int(input())
+S = "x" + input() + "x"
+T = input()
+
+dp = [[0] * 110 for _ in range(110)]
+for diff in range(2, N):
+    for l in range(1, N+1):
+        r = l+diff
+        if r > N+1: continue
+        tmp = max(dp[l-1][r], dp[l][r-1])
+        for m in range(l+1, r):
+            tmp = max(tmp, dp[l][m-1] + dp[m][r])
+            judge = True
+            judge &= dp[l+1][m-1] == m-l-1 or m-l == 1
+            judge &= dp[m+1][r-1] == r-m-1 or r-m == 1
+            judge &= S[l] + S[m] + S[r] == T
+            if judge:
+                tmp = max(tmp, r-l+1)
+        dp[l][r] = tmp
+
+print(dp[1][N]//3)
+
+
