@@ -1,5 +1,65 @@
 # 強連結成分分解
 
+def scc(n, edges):
+    g = [[] for _ in range(n)]
+    rg = [[] for _ in range(n)]
+    for u, v in edges:
+        g[u].append(v)
+        rg[v].append(u)  # 逆向きの辺
+
+    # ① 元のグラフで「探索を終えた順」を記録
+    seen = [False] * n
+    order = []
+
+    for start in range(n):
+        if seen[start]:
+            continue
+
+        seen[start] = True
+        stack = [(start, 0)]
+
+        while stack:
+            v, i = stack[-1]
+
+            if i == len(g[v]):
+                stack.pop()
+                order.append(v)
+                continue
+
+            # 戻ってきたら次の辺から調べる
+            stack[-1] = (v, i + 1)
+            to = g[v][i]
+            if not seen[to]:
+                seen[to] = True
+                stack.append((to, 0))
+
+    # ② 終了順の逆から、逆向きのグラフを探索
+    groups = []
+    cid = [-1] * n
+
+    for start in reversed(order):
+        if cid[start] != -1:
+            continue
+
+        k = len(groups)
+        group = []
+        stack = [start]
+        cid[start] = k
+
+        while stack:
+            v = stack.pop()
+            group.append(v)
+
+            for to in rg[v]:
+                if cid[to] == -1:
+                    cid[to] = k
+                    stack.append(to)
+
+        groups.append(group)
+
+    return groups, cid
+
+
 import sys
 sys.setrecursionlimit(10**8)
 from collections import Counter
