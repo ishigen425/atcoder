@@ -37,9 +37,9 @@ def _bfs(N, edges, start):
 def tree_diameter(N, edges):
     # 適当な頂点から最遠の頂点 a、a から最遠の頂点 b が直径の両端
     dist0, _ = _bfs(N, edges, 0)
-    a = max(range(N), key=lambda i: dist0[i])
+    a = dist0.index(max(dist0))
     dist_a, par_a = _bfs(N, edges, a)
-    b = max(range(N), key=lambda i: dist_a[i])
+    b = dist_a.index(max(dist_a))
     path = [b]
     while path[-1] != a:
         path.append(par_a[path[-1]])
