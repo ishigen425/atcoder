@@ -1,6 +1,6 @@
 def kruskal(edge, n):
     '''
-    クラスカル法で最小全域木を作成する(UnionFindを使う)
+    クラスカル法で最小全域木を作成する(lib/acl/dsu.py の DSU を使う, 0-indexed)
 
     Parameters
     edge : list([from, to, c])
@@ -13,12 +13,11 @@ def kruskal(edge, n):
         最小全域木の全ての辺の総和
     '''
     edge.sort(key = lambda x:x[2])
-    union = UnionFind(n)
+    uf = DSU(n)
     res = 0
-    ret = []
     for x, y, c in edge:
-        if not union.is_same_group(x, y):
-            union.unite(x, y)
-            ret.append((x, y, c))
+        if not uf.same(x, y):
+            uf.merge(x, y)
             res += c
-    return re
+    return res
+

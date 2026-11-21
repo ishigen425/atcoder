@@ -1,30 +1,4 @@
-class factrize_osa_k():
-    from collections import defaultdict
-    '''
-        高速素因数分解
-        前処理 O(maxnum log log maxnum)
-        素因数分解 O(log n)
-    '''
-    def __init__(self, maxnum):
-        self.maxnum = maxnum
-        self.sieve = [i for i in range(maxnum)]
-        p = 2
-        while p * p < maxnum:
-            if self.sieve[p] == p:
-                for q in range(2*p, maxnum, p):
-                    if self.sieve[q] == q:
-                        self.sieve[q] = p
-            p += 1
-    
-    def calc_prime(self, a):
-        d = defaultdict(int)
-        while a > 1:
-            d[self.sieve[a]] += 1
-            a //= self.sieve[a]
-        return d
-    
-    def is_prime(self, a):
-        return self.sieve[a] == a
+# 篩による高速素因数分解は lib/other/sieve.py の Sieve を使う
 
 def prime_factorize(n):
     res, a = [], 2
